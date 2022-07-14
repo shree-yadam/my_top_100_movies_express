@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger("dev"));
 
-app.use("/api/users", userRouter());
+app.use("/users", userRouter());
 
 app.get("/", (req, res) => {
   res.send("Setup Done!");
