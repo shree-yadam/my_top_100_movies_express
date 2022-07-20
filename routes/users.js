@@ -33,17 +33,17 @@ module.exports = (db) => {
     .then(existingUser => {
       if(existingUser) {
         res.status(400).send("email already in use!");
-        return;
+      } else {
+        user.password = bcrypt.hashSync(user.password, saltRounds);
+        return appUserDbHelper.addUser(db, user);
       }
-      user.password = bcrypt.hashSync(user.password, saltRounds);
-      return appUserDbHelper.addUser(db, user);
     })
     .then(addedUser => {
       if(!addedUser) {
         res.status(500).send("Error adding User");
-        return;
+      } else {
+        res.send("User Logged in");
       }
-      res.send("User Logged in");
     })
     .catch(err => {
       console.log("Err");
